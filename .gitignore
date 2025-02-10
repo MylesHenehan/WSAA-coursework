@@ -1,0 +1,17 @@
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+Thumbs.db
+ehthumbs.db
+.Spotlight-V100
+.Trashes
+.vscode/
+.idea/
+xcuserdata/
+*.xcuserstate
+.rubyMine/
+node_modules/
+*.swp
+*.swo
