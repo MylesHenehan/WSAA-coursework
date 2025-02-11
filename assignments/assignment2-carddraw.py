@@ -16,4 +16,37 @@ cards = draw_data["cards"]
 for card in cards:
     print(f"{card['value']} of {card['suit']}") # this prints out the 5 cards with both value and suit.
 
-    
+# More advanced part of the assignment - check if the user has drawn a pair, triple, straight, or all of the same suit and congratulate the user.
+
+# 1. Separate values and suits into 2 separate lists, since one is not dependent on the other for what we're trying to achieve
+drawnsuits = []
+for card in cards:
+    suit = card["suit"]
+    drawnsuits.append(suit)
+
+# print(drawnsuits) - used to test
+
+drawnvalues = []
+for card in cards:
+    value = card["value"]
+    drawnvalues.append(value)
+
+# print(drawnvalues) - used to test
+
+# 2. Congrats message for flush (all same suit)
+for suit in set(drawnsuits):
+    count = drawnsuits.count(suit)
+    if count == 5:
+        print("Congratulations, you have a flush.")
+
+# 3. Congrats message for pair or triple
+for value in set(drawnvalues):
+    count = drawnvalues.count(value)
+    if count == 2:
+        print("Congratulations, you have a pair.")
+    elif count == 3:
+        print("Congratulations, you have a triple.")
+
+# 4. Congrats message for a straight
+for value in set(drawnvalues):
+
