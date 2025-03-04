@@ -49,4 +49,4 @@ for value in set(drawnvalues):
 
 # 4. Congrats message for a straight
 for value in set(drawnvalues):
-
+    
