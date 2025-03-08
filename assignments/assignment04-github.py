@@ -1,20 +1,21 @@
 import requests
-import base64
-import json
 from github import Github
 from config import config as cfg
 
-apikey = cfg["githubkey"]
-githuburl = "https://api.github.com/repos/MylesHenehan/privaterepo/contents/andrew.txt"
-replacementname = input("Please enter your name: ")
-
+apikey = cfg['githubkey']
 g = Github(apikey)
 
-response = requests.get(githuburl, auth=('token', apikey))
-content = response.json()
+repo = g.get_repo("MylesHenehan/privaterepo")
 
-with open(content, "wb") as file:
-    file.replace("Andrew",replacementname)
+fileinfo = repo.get_contents("andrew.txt")
+fileurl = fileinfo.download_url
+
+response = requests.get(fileurl)
+filecontent = response
+print(filecontent)
+
+
+
 
 
 
