@@ -14,6 +14,11 @@ response = requests.get(fileurl)
 filecontent = response
 print(filecontent)
 
+newcontent = filecontent.replace("Andrew", input("Please enter your name: "))
+gitHubResponse=repo.update_file(fileinfo.path,"updated by prog",newcontent,fileinfo.sha)
+print(gitHubResponse)
+
+
 
 
 
