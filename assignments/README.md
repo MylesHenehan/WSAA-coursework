@@ -16,8 +16,8 @@ It uses Python's `requests` module to fetch the dataset in JSON-stat format and 
 
 ### 3. **assignment04-github**  
 A Python script that:
-- Reads a file from a private GitHub repository  
+- Reads a file from a private GitHub repository using a Github authentication key.
 - Replaces every instance of the name "Andrew" with the user's name  
-- Commits the changes and pushes them back to the repository using authentication keys  
+- Commits the changes and pushes them back to the repository. 
 
 This assignment demonstrates integration with GitHub using the `PyGithub` package.
