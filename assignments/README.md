@@ -6,15 +6,15 @@ This folder contains the three written assignments submitted for the *Web Servic
 
 ## 📁 Contents
 
-### 1. **Deal Cards**  
+### 1. **assignment2-carddraw**  
 This program interacts with the [Deck of Cards API](https://deckofcardsapi.com/) to simulate dealing a hand of 5 playing cards.  
 It analyses the resulting hand and displays a message congratulating the user based on the combination they draw (e.g., pairs, three-of-a-kind, etc.).
 
-### 2. **Assignment 3 – CSO Dataset**  
+### 2. **assignment03-cso**  
 This script retrieves data from the [Central Statistics Office (CSO)](https://data.cso.ie/) for the **Exchequer Account (Historical Series)**.  
 It uses Python's `requests` module to fetch the dataset in JSON-stat format and stores the output into a file named `cso.json`.
 
-### 3. **Assignment 4 – Private Repo File Edit**  
+### 3. **assignment04-github**  
 A Python script that:
 - Reads a file from a private GitHub repository  
 - Replaces every instance of the name "Andrew" with the user's name  
