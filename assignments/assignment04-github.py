@@ -18,7 +18,8 @@ print(filecontent)
 if "Andrew" in filecontent:
     newcontent = filecontent.replace("Andrew", input("Please enter your name: ")) # now I can replace the instances of "Andrew" in the file with whatever the user's name is.
     gitHubResponse=repo.update_file(fileinfo.path,"updated by prog",newcontent,fileinfo.sha) # finally, I commit this to Github
-    print(gitHubResponse)
+    # print(gitHubResponse) - to test
+    print ("Name replaced successfully")
 else:
     print("The file does not contain the string 'Andrew'. There are no changes to be made.")
 
