@@ -1,6 +1,6 @@
 # Assignments – Web Services and Applications (ATU)
-Author: Myles Henehan
-Student Number: G00439446
+### Author: Myles Henehan
+### Student Number: G00439446
 
 This folder contains the three written assignments submitted for the *Web Services and Applications* module at Atlantic Technological University (ATU). Each assignment involves working with web-based APIs or services using Python.
 
