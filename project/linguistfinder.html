@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <title> Find Linguists</title>
+        <!-- CSS only -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+        crossorigin="anonymous">
+    </head> 
+    <body> 
+        See which linguists are available for your project
+    
+        <h1>Linguists</h1>
+        <div>
+        <span><button>Create</button></span>
+            <table class="table">
+                <tr>
+                        <th>Linguist ID</th>
+                        <th>Linguist Name</th>
+                        <th>Linguist Email</th>
+                        <th>Target Locale</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Boaty McBoatFace</td>
+                    <td>boatymcb@gmail.com</td>
+                    <td>fr-FR</td>
+                    <td></td><span><button style="display:none">Update</button></span></td>
+                    <td><button>delete</button></td>
+                </tr>
+            </table>
+
+        <h2>
+            <span>Create a</span>
+            <span style="display:none">Update this</span> Linguist
+        </h2>
+        <div>
+            ID <input type="text" name="id"><br/>
+            Name <input type="text" name="title"><br/>
+            Email <input type="text" name="author"><br/>
+            Target Locale <select name="status">
+                <option value="french">fr-FR</option>
+                <option value="german">de-DE</option>
+                <option value="spanish">es-ES</option>
+            </select><br/>
+                
+        </div>
+    <script>
+    </script>
+    </body> 
+</html>
