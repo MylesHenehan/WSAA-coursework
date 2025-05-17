@@ -1,52 +1,175 @@
 <html>
-    <head>
-        <title> Find Linguists</title>
-        <!-- CSS only -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+<head>
+    <title>Find Linguists</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
         crossorigin="anonymous">
-    </head> 
-    <body> 
-        See which linguists are available for your project
-    
-        <h1>Linguists</h1>
-        <div>
-        <span><button>Create</button></span>
-            <table class="table">
-                <tr>
-                        <th>Linguist ID</th>
-                        <th>Linguist Name</th>
-                        <th>Linguist Email</th>
-                        <th>Target Locale</th>
-                        <th>Update</th>
-                        <th>Delete</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Boaty McBoatFace</td>
-                    <td>boatymcb@gmail.com</td>
-                    <td>fr-FR</td>
-                    <td></td><span><button style="display:none">Update</button></span></td>
-                    <td><button>delete</button></td>
-                </tr>
-            </table>
+</head>
+<body class="p-4">
 
-        <h2>
-            <span>Create a</span>
-            <span style="display:none">Update this</span> Linguist
+    <h1>Linguists</h1>
+    <p>See which linguists are in the database.</p>
+
+    <div>
+        <button id="showCreateButton" onclick="showCreate()">Create</button>
+    </div>
+
+    <div id="createUpdateForm" style="display: none;" class="my-3">
+        <h2 id="formHeader">
+            <span id="createLabel">Create a</span>
+            <span id="updateLabel" style="display: none;">Update this</span> Linguist
         </h2>
+
         <div>
-            ID <input type="text" name="id"><br/>
-            Name <input type="text" name="title"><br/>
-            Email <input type="text" name="author"><br/>
-            Target Locale <select name="status">
-                <option value="french">fr-FR</option>
-                <option value="german">de-DE</option>
-                <option value="spanish">es-ES</option>
-            </select><br/>
-                
+            ID: <input type="text" name="LinguistID"><br/>
+            Name: <input type="text" name="LinguistName"><br/>
+            Email: <input type="text" name="LinguistEmail"><br/>
+            Target Locale:
+            <select name="TargetLocale">
+                <option value="fr-FR">fr-FR</option>
+                <option value="de-DE">de-DE</option>
+                <option value="es-ES">es-ES</option>
+            </select><br/><br/>
+
+            <button id="doCreateButton" onclick="doCreate()">Submit</button>
+            <button id="doUpdateButton" onclick="doUpdate()" style="display:none;">Update</button>
         </div>
+    </div>
+
+    <table class="table" id="LinguistTable">
+        <thead>
+            <tr>
+                <th>Linguist ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Target Locale</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr id="1">
+                <td>1</td>
+                <td>Boaty McBoatFace</td>
+                <td>boatymcb@gmail.com</td>
+                <td>fr-FR</td>
+                <td><button onclick="showUpdate(this)">Update</button></td>
+                <td><button onclick="doDelete(this)">Delete</button></td>
+            </tr>
+        </tbody>
+    </table>
+
     <script>
+        function showCreate() {
+            document.getElementById('showCreateButton').style.display = "none";
+            document.getElementById('LinguistTable').style.display = "none";
+            document.getElementById('createUpdateForm').style.display = "block";
+
+            document.getElementById('createLabel').style.display = "inline";
+            document.getElementById('updateLabel').style.display = "none";
+            document.getElementById('doCreateButton').style.display = "inline";
+            document.getElementById('doUpdateButton').style.display = "none";
+
+            clearForm();
+        }
+
+        function showUpdate(buttonElement) {
+            document.getElementById('showCreateButton').style.display = "none";
+            document.getElementById('LinguistTable').style.display = "none";
+            document.getElementById('createUpdateForm').style.display = "block";
+
+            document.getElementById('createLabel').style.display = "none";
+            document.getElementById('updateLabel').style.display = "inline";
+            document.getElementById('doCreateButton').style.display = "none";
+            document.getElementById('doUpdateButton').style.display = "inline";
+
+            const row = buttonElement.closest('tr');
+            const linguist = getLinguistFromRow(row);
+            populateFormWithLinguist(linguist);
+        }
+
+        function getLinguistFromForm() {
+            const form = document.getElementById('createUpdateForm');
+            return {
+                id: form.querySelector('input[name="LinguistID"]').value,
+                name: form.querySelector('input[name="LinguistName"]').value,
+                email: form.querySelector('input[name="LinguistEmail"]').value,
+                locale: form.querySelector('select[name="TargetLocale"]').value
+            };
+        }
+
+        function clearForm() {
+            const form = document.getElementById('createUpdateForm');
+            form.querySelector('input[name="LinguistID"]').disabled = false;
+            form.querySelector('input[name="LinguistID"]').value = '';
+            form.querySelector('input[name="LinguistName"]').value = '';
+            form.querySelector('input[name="LinguistEmail"]').value = '';
+            form.querySelector('select[name="TargetLocale"]').value = '';
+        }
+
+        function getLinguistFromRow(row) {
+            return {
+                id: row.cells[0].innerText,
+                name: row.cells[1].innerText,
+                email: row.cells[2].innerText,
+                locale: row.cells[3].innerText
+            };
+        }
+
+        function populateFormWithLinguist(linguist) {
+            const form = document.getElementById('createUpdateForm');
+            form.querySelector('input[name="LinguistID"]').value = linguist.id;
+            form.querySelector('input[name="LinguistID"]').disabled = true;
+            form.querySelector('input[name="LinguistName"]').value = linguist.name;
+            form.querySelector('input[name="LinguistEmail"]').value = linguist.email;
+            form.querySelector('select[name="TargetLocale"]').value = linguist.locale;
+        }
+
+        function addLinguistToTable(linguist) {
+            const table = document.getElementById('LinguistTable').querySelector('tbody');
+            const row = table.insertRow();
+            row.id = linguist.id;
+
+            row.insertCell(0).innerText = linguist.id;
+            row.insertCell(1).innerText = linguist.name;
+            row.insertCell(2).innerText = linguist.email;
+            row.insertCell(3).innerText = linguist.locale;
+            row.insertCell(4).innerHTML = '<button onclick="showUpdate(this)">Update</button>';
+            row.insertCell(5).innerHTML = '<button onclick="doDelete(this)">Delete</button>';
+        }
+
+        function setLinguistInRow(row, linguist) {
+            row.cells[1].innerText = linguist.name;
+            row.cells[2].innerText = linguist.email;
+            row.cells[3].innerText = linguist.locale;
+        }
+
+        function doCreate() {
+            const linguist = getLinguistFromForm();
+            console.log("Creating a linguist record", linguist);
+            addLinguistToTable(linguist);
+            clearForm();
+            showViewAll();
+        }
+
+        function doUpdate() {
+            const linguist = getLinguistFromForm();
+            const row = document.getElementById(linguist.id);
+            setLinguistInRow(row, linguist);
+            clearForm();
+            showViewAll();
+        }
+
+        function doDelete(buttonElement) {
+            const row = buttonElement.closest('tr');
+            row.remove();
+        }
+
+        function showViewAll() {
+            document.getElementById('showCreateButton').style.display = "inline";
+            document.getElementById('LinguistTable').style.display = "table";
+            document.getElementById('createUpdateForm').style.display = "none";
+        }
     </script>
-    </body> 
+</body>
 </html>
