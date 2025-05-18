@@ -170,6 +170,82 @@
             document.getElementById('LinguistTable').style.display = "table";
             document.getElementById('createUpdateForm').style.display = "none";
         }
+
+        function getAllAjax(){
+        $.ajax({
+            "url": "/linguists",
+            "method":"GET",
+            "data":"",
+            "dataType": "JSON",
+            "success":function(result){
+                //console.log(result);
+                for (linguist of result){
+                    addLinguistToTable(linguist);
+                }
+                
+            },
+            "error":function(xhr,status,error){
+                console.log("error: "+status+" msg:"+error);
+            }
+        });
+
+        }
+        function createLinguistAjax(linguist){
+            console.log(JSON.stringify(linguist));
+            $.ajax({
+                "url": "/linguists",
+                "method":"POST",
+                "data":JSON.stringify(linguist),
+                "dataType": "JSON",
+                contentType: "application/json; charset=utf-8",
+                "success":function(result){
+                    //console.log(result);
+                    linguist.id = result.id
+                    addLinguistToTable(linguist)
+                    clearForm()
+                    showViewAll()
+                },
+                "error":function(xhr,status,error){
+                    console.log("error: "+status+" msg:"+error);
+                }
+            });
+        }
+        function updateLinguistAjax(linguist){
+            console.log(JSON.stringify(linguist));
+            $.ajax({
+                "url": "/linguists/"+encodeURI(linguist.id),
+                "method":"PUT",
+                "data":JSON.stringify(linguist),
+                "dataType": "JSON",
+                contentType: "   ; charset=utf-8",
+                "success":function(result){
+                // console.log(result);
+                    
+                },
+                "error":function(xhr,status,error){
+                    console.log("error: "+status+" msg:"+error);
+                }
+            });
+        }
+        function deleteLinguistAjax(id){
+            
+            //console.log(JSON.stringify('deleting '+id));
+            $.ajax({
+                "url": "/linguist/"+encodeURI(id),
+                "method":"DELETE",
+                "data":"",
+                "dataType": "JSON",
+                contentType: "application/json; charset=utf-8",
+                "success":function(result){
+                    //console.log(result);
+                    
+                },
+                "error":function(xhr,status,error){
+                    console.log("error: "+status+" msg:"+error);
+                }
+            });
+        }
+        getAllAjax();
     </script>
 </body>
 </html>
