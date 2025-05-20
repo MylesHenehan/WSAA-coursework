@@ -1,67 +1,50 @@
-from flask import Flask, jsonify, request, abort
+from flask import Flask, jsonify, request, abort, render_template
 from flask_cors import CORS, cross_origin
-from linguistDAO import linguistDAO
+from linguistDAO import dao
 
 app = Flask(__name__, static_url_path='', static_folder='.')
 CORS(app)  # Enable CORS for all domains on all routes
 app.config['CORS_HEADERS'] = 'Content-Type'
 
+@app.route('/')
+def home():
+    return render_template('linguistfinder.html')
 
-@app.route('/linguists')
-@cross_origin()
+@app.route("/linguists", methods=['GET'])
 def getAll():
-    results = linguistDAO.getAll()
-    return jsonify(results)
+    linguists = dao.getAll()
+    return jsonify(linguists)
 
-
-@app.route('/linguists/<int:LinguistID>')
-@cross_origin()
+@app.route('/linguists/<int:LinguistID>', methods=['GET'])
 def findById(LinguistID):
-    foundlinguist = linguistDAO.findByID(LinguistID)
-    return jsonify(foundlinguist) if foundlinguist else abort(404)
-
+    linguist = dao.findByID(LinguistID)
+    if linguist:
+        return jsonify(linguist)
+    else:
+        abort(404)
 
 @app.route('/linguists', methods=['POST'])
-@cross_origin()
 def create():
     if not request.json:
         abort(400)
-
-    linguist = {
-        "LinguistName": request.json['LinguistName'],
-        "LinguistEmail": request.json['LinguistEmail'],
-        "TargetLocale": request.json['TargetLocale'],
-    }
-    addedlinguist = linguistDAO.create(linguist)
-    return jsonify(addedlinguist), 201
-
+    linguist_data = request.json
+    added_linguist = dao.create(linguist_data)
+    return jsonify(added_linguist), 201
 
 @app.route('/linguists/<int:LinguistID>', methods=['PUT'])
-@cross_origin()
 def update(LinguistID):
-    foundlinguist = linguistDAO.findByID(LinguistID)
-    if not foundlinguist:
-        abort(404)
-
     if not request.json:
         abort(400)
-    reqJson = request.json
-
-    if 'LinguistName' in reqJson:
-        foundlinguist['LinguistName'] = reqJson['LinguistName']
-    if 'LinguistEmail' in reqJson:
-        foundlinguist['LinguistEmail'] = reqJson['LinguistEmail']
-    if 'TargetLocale' in reqJson:
-        foundlinguist['TargetLocale'] = reqJson['TargetLocale']
-
-    linguistDAO.update(LinguistID, foundlinguist)
-    return jsonify(foundlinguist)
-
+    linguist_data = request.json
+    found = dao.findByID(LinguistID)
+    if not found:
+        abort(404)
+    updated = dao.update(LinguistID, linguist_data)
+    return jsonify(updated)
 
 @app.route('/linguists/<int:LinguistID>', methods=['DELETE'])
-@cross_origin()
 def delete(LinguistID):
-    linguistDAO.delete(LinguistID)
+    dao.delete(LinguistID)
     return jsonify({"done": True})
 
 

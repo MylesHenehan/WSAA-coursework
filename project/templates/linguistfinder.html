@@ -4,6 +4,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
         crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body class="p-4">
 
@@ -48,14 +49,6 @@
             </tr>
         </thead>
         <tbody>
-            <tr id="1">
-                <td>1</td>
-                <td>Boaty McBoatFace</td>
-                <td>boatymcb@gmail.com</td>
-                <td>fr-FR</td>
-                <td><button onclick="showUpdate(this)">Update</button></td>
-                <td><button onclick="doDelete(this)">Delete</button></td>
-            </tr>
         </tbody>
     </table>
 
@@ -91,10 +84,10 @@
         function getLinguistFromForm() {
             const form = document.getElementById('createUpdateForm');
             return {
-                id: form.querySelector('input[name="LinguistID"]').value,
-                name: form.querySelector('input[name="LinguistName"]').value,
-                email: form.querySelector('input[name="LinguistEmail"]').value,
-                locale: form.querySelector('select[name="TargetLocale"]').value
+                LinguistID: form.querySelector('input[name="LinguistID"]').value,
+                LinguistName: form.querySelector('input[name="LinguistName"]').value,
+                LinguistEmail: form.querySelector('input[name="LinguistEmail"]').value,
+                TargetLocale: form.querySelector('select[name="TargetLocale"]').value
             };
         }
 
@@ -104,65 +97,64 @@
             form.querySelector('input[name="LinguistID"]').value = '';
             form.querySelector('input[name="LinguistName"]').value = '';
             form.querySelector('input[name="LinguistEmail"]').value = '';
-            form.querySelector('select[name="TargetLocale"]').value = '';
+            form.querySelector('select[name="TargetLocale"]').value = 'fr-FR';
         }
 
         function getLinguistFromRow(row) {
             return {
-                id: row.cells[0].innerText,
-                name: row.cells[1].innerText,
-                email: row.cells[2].innerText,
-                locale: row.cells[3].innerText
+                LinguistID: row.cells[0].innerText,
+                LinguistName: row.cells[1].innerText,
+                LinguistEmail: row.cells[2].innerText,
+                TargetLocale: row.cells[3].innerText
             };
         }
 
         function populateFormWithLinguist(linguist) {
             const form = document.getElementById('createUpdateForm');
-            form.querySelector('input[name="LinguistID"]').value = linguist.id;
+            form.querySelector('input[name="LinguistID"]').value = linguist.LinguistID;
             form.querySelector('input[name="LinguistID"]').disabled = true;
-            form.querySelector('input[name="LinguistName"]').value = linguist.name;
-            form.querySelector('input[name="LinguistEmail"]').value = linguist.email;
-            form.querySelector('select[name="TargetLocale"]').value = linguist.locale;
+            form.querySelector('input[name="LinguistName"]').value = linguist.LinguistName;
+            form.querySelector('input[name="LinguistEmail"]').value = linguist.LinguistEmail;
+            form.querySelector('select[name="TargetLocale"]').value = linguist.TargetLocale;
         }
 
         function addLinguistToTable(linguist) {
             const table = document.getElementById('LinguistTable').querySelector('tbody');
             const row = table.insertRow();
-            row.id = linguist.id;
+            row.id = linguist.LinguistID;
 
-            row.insertCell(0).innerText = linguist.id;
-            row.insertCell(1).innerText = linguist.name;
-            row.insertCell(2).innerText = linguist.email;
-            row.insertCell(3).innerText = linguist.locale;
+            row.insertCell(0).innerText = linguist.LinguistID;
+            row.insertCell(1).innerText = linguist.LinguistName;
+            row.insertCell(2).innerText = linguist.LinguistEmail;
+            row.insertCell(3).innerText = linguist.TargetLocale;
             row.insertCell(4).innerHTML = '<button onclick="showUpdate(this)">Update</button>';
             row.insertCell(5).innerHTML = '<button onclick="doDelete(this)">Delete</button>';
         }
 
         function setLinguistInRow(row, linguist) {
-            row.cells[1].innerText = linguist.name;
-            row.cells[2].innerText = linguist.email;
-            row.cells[3].innerText = linguist.locale;
+            row.cells[1].innerText = linguist.LinguistName;
+            row.cells[2].innerText = linguist.LinguistEmail;
+            row.cells[3].innerText = linguist.TargetLocale;
         }
 
+        // Create a new linguist (local + AJAX)
         function doCreate() {
             const linguist = getLinguistFromForm();
             console.log("Creating a linguist record", linguist);
-            addLinguistToTable(linguist);
-            clearForm();
-            showViewAll();
+            createLinguistAjax(linguist);
         }
 
+        // Update existing linguist (local + AJAX)
         function doUpdate() {
             const linguist = getLinguistFromForm();
-            const row = document.getElementById(linguist.id);
-            setLinguistInRow(row, linguist);
-            clearForm();
-            showViewAll();
+            updateLinguistAjax(linguist);
         }
 
+        // Delete linguist locally and via AJAX
         function doDelete(buttonElement) {
             const row = buttonElement.closest('tr');
-            row.remove();
+            const id = row.id;
+            deleteLinguistAjax(id);
         }
 
         function showViewAll() {
@@ -171,80 +163,92 @@
             document.getElementById('createUpdateForm').style.display = "none";
         }
 
+        // Load all linguists from server and populate table
         function getAllAjax(){
-        $.ajax({
-            "url": "/linguists",
-            "method":"GET",
-            "data":"",
-            "dataType": "JSON",
-            "success":function(result){
-                //console.log(result);
-                for (linguist of result){
-                    addLinguistToTable(linguist);
+            $.ajax({
+                url: "/linguists",
+                method:"GET",
+                dataType: "JSON",
+                success:function(result){
+                    // Clear table first to avoid duplicates
+                    const tbody = document.getElementById('LinguistTable').querySelector('tbody');
+                    tbody.innerHTML = '';
+                    for (const linguist of result){
+                        addLinguistToTable(linguist);
+                    }
+                },
+                error:function(xhr,status,error){
+                    console.log("error: "+status+" msg:"+error);
                 }
-                
-            },
-            "error":function(xhr,status,error){
-                console.log("error: "+status+" msg:"+error);
-            }
-        });
+            });
+        }
 
-        }
+        // AJAX create request
         function createLinguistAjax(linguist){
-            console.log(JSON.stringify(linguist));
             $.ajax({
-                "url": "/linguists",
-                "method":"POST",
-                "data":JSON.stringify(linguist),
-                "dataType": "JSON",
+                url: "/linguists",
+                method:"POST",
+                data:JSON.stringify(linguist),
+                dataType: "JSON",
                 contentType: "application/json; charset=utf-8",
-                "success":function(result){
-                    //console.log(result);
-                    linguist.id = result.id
-                    addLinguistToTable(linguist)
-                    clearForm()
-                    showViewAll()
+                success:function(result){
+                    // Use returned LinguistID and add to table
+                    linguist.LinguistID = result.LinguistID;
+                    addLinguistToTable(linguist);
+                    clearForm();
+                    showViewAll();
                 },
-                "error":function(xhr,status,error){
+                error:function(xhr,status,error){
                     console.log("error: "+status+" msg:"+error);
                 }
             });
         }
+
+        // AJAX update request
         function updateLinguistAjax(linguist){
-            console.log(JSON.stringify(linguist));
             $.ajax({
-                "url": "/linguists/"+encodeURI(linguist.id),
-                "method":"PUT",
-                "data":JSON.stringify(linguist),
-                "dataType": "JSON",
-                contentType: "   ; charset=utf-8",
-                "success":function(result){
-                // console.log(result);
-                    
-                },
-                "error":function(xhr,status,error){
-                    console.log("error: "+status+" msg:"+error);
-                }
-            });
-        }
-        function deleteLinguistAjax(id){
-            
-            //console.log(JSON.stringify('deleting '+id));
-            $.ajax({
-                "url": "/linguist/"+encodeURI(id),
-                "method":"DELETE",
-                "data":"",
-                "dataType": "JSON",
+                url: "/linguists/" + encodeURIComponent(linguist.LinguistID),
+                method:"PUT",
+                data:JSON.stringify(linguist),
+                dataType: "JSON",
                 contentType: "application/json; charset=utf-8",
-                "success":function(result){
-                    //console.log(result);
-                    
+                success:function(result){
+                    // Update the row in table
+                    const row = document.getElementById(linguist.LinguistID);
+                    if(row){
+                        setLinguistInRow(row, linguist);
+                    }
+                    clearForm();
+                    showViewAll();
                 },
-                "error":function(xhr,status,error){
+                error:function(xhr,status,error){
                     console.log("error: "+status+" msg:"+error);
                 }
             });
         }
+
+        // AJAX delete request
+        function deleteLinguistAjax(id){
+            $.ajax({
+                url: "/linguists/" + encodeURIComponent(id),
+                method:"DELETE",
+                dataType: "JSON",
+                contentType: "application/json; charset=utf-8",
+                success:function(result){
+                    // Remove row from table
+                    const row = document.getElementById(id);
+                    if(row){
+                        row.remove();
+                    }
+                    showViewAll();
+                },
+                error:function(xhr,status,error){
+                    console.log("error: "+status+" msg:"+error);
+                }
+            });
+        }
+
+        // Initialize by loading all linguists
         getAllAjax();
     </script>
 </body>

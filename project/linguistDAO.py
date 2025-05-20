@@ -36,8 +36,10 @@ class linguistDAO:
         sql = "SELECT * FROM linguists"
         cursor.execute(sql)
         results = cursor.fetchall()
+        print(f"DEBUG: Retrieved rows from DB: {results}")
         returnArray = [self.convert_to_dict(row) for row in results]
         self.closeAll()
+        print(f"DEBUG: Converted to dict: {returnArray}")
         return returnArray
 
 # function to retrieve row by LinguistID
@@ -92,4 +94,4 @@ class linguistDAO:
         return dict(zip(keys, resultLine))
 
 # Create global instance of the class for use in Flask
-linguistDAO = linguistDAO()
+dao = linguistDAO()
