@@ -12,7 +12,7 @@ class linguistDAO:
         self.connection = None
         self.cursor = None
 
-    # function to connect to the database (will be used for all SQL queries) 
+    # function to connect to the database (will be used for all SQL queries)
     def getcursor(self):
         self.connection = mysql.connector.connect(
             host=self.host,
@@ -30,10 +30,20 @@ class linguistDAO:
         if self.connection:
             self.connection.close()
 
-# function to get all records from the linguists table
+# function to get all records from the linguists table along with their rates from the rates table
     def getAll(self):
         cursor = self.getcursor()
-        sql = "SELECT * FROM linguists"
+        sql = """
+            SELECT 
+                l.LinguistID,
+                l.LinguistName, 
+                l.LinguistEmail, 
+                l.TargetLocale, 
+                r.PerWordRate, 
+                r.HourlyRate
+            FROM linguists AS l
+            JOIN rates AS r ON l.LinguistID = r.LinguistID
+        """
         cursor.execute(sql)
         results = cursor.fetchall()
         print(f"DEBUG: Retrieved rows from DB: {results}")
@@ -42,14 +52,31 @@ class linguistDAO:
         print(f"DEBUG: Converted to dict: {returnArray}")
         return returnArray
 
-# function to retrieve row by LinguistID
-    def findByID(self, LinguistID):
+# function to retrieve linguist info (including rates) by ID
+    def findLinguistWithRate(self, LinguistID):
         cursor = self.getcursor()
-        sql = "SELECT * FROM linguists WHERE LinguistID = %s"
+        sql = """
+            SELECT l.LinguistID, l.LinguistName, l.LinguistEmail, l.TargetLocale,
+                r.PerWordRate, r.MinimumFee
+            FROM linguists l
+            LEFT JOIN rates r ON l.LinguistID = r.LinguistID
+            WHERE l.LinguistID = %s
+        """
         cursor.execute(sql, (LinguistID,))
         result = cursor.fetchone()
         self.closeAll()
-        return self.convert_to_dict(result) if result else None
+
+        if result:
+            return {
+                "LinguistID": result[0],
+                "LinguistName": result[1],
+                "LinguistEmail": result[2],
+                "TargetLocale": result[3],
+                "PerWordRate": result[4],
+                "HourlyFee": result[5]
+            }
+        else:
+            return None
     
 # function which takes a dict object for linguist and inserts it to the database
     def create(self, linguist): 
@@ -88,10 +115,10 @@ class linguistDAO:
         self.connection.commit()
         self.closeAll()
 
-# function to convert each row of results from a tuple into a dict for use in flask (source: https://blog.finxter.com/5-best-ways-to-convert-a-python-tuple-into-a-dictionary/)
+# function to convert each row of results from a tuple into a dict for use in flask
     def convert_to_dict(self, resultLine):
-        keys = ['LinguistID', 'LinguistName', 'LinguistEmail', 'TargetLocale']
+        keys = ['LinguistID', 'LinguistName', 'LinguistEmail', 'TargetLocale', 'PerWordRate', 'HourlyRate']
         return dict(zip(keys, resultLine))
 
-# Create global instance of the class for use in Flask (source: https://www.w3schools.com/python/python_variables_global.asp)
+# Create global instance of the class for use in Flask
 dao = linguistDAO()

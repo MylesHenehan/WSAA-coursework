@@ -115,6 +115,7 @@ Atlantic Technological University (ATU)
 - Geeksforgeeks.org, 2023. JavaScript const. [online] Available at: https://www.geeksforgeeks.org/javascript-const/ [Accessed 16 May 2025].
 - Geeksforgeeks.org, 2023a. Flask Tutorial. [online] Available at: https://www.geeksforgeeks.org/flask-tutorial/ [Accessed 15 May 2025].
 - Geeksforgeeks.org, 2023b. JavaScript console.log() Method. [online] Available at: https://www.geeksforgeeks.org/javascript-console-log-method/ [Accessed 17 May 2025].
+- MDN Web Docs, 2024. Optional chaining (?.) [online] Mozilla. Available at: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining [Accessed 23 May 2025].
 - Medium.com, 2023. How to Deploy a Python App on PythonAnywhere. [online] Available at: https://medium.com/@cssjhnnamae/how-to-deploy-a-python-app-on-pythonanywhere-cf399f4bbc01 [Accessed 19 May 2025].
 - OpenAI, 2025. ChatGPT. [online] Available at: https://chat.openai.com/ [Accessed 23 May 2025].
 - Planetscale.com, 2023. Using cursors in Python with MySQL. [online] Planetscale. Available at: https://planetscale.com/learn/courses/mysql-for-python-developers/using-mysql-with-python/using-cursors?autoplay=1 [Accessed 15 May 2025].
