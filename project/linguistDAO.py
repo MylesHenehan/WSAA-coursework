@@ -12,7 +12,7 @@ class linguistDAO:
         self.connection = None
         self.cursor = None
 
-    # function to connect to the database (will be used for all SQL queries)
+    # function to connect to the database (will be used for all SQL queries) 
     def getcursor(self):
         self.connection = mysql.connector.connect(
             host=self.host,
@@ -88,10 +88,10 @@ class linguistDAO:
         self.connection.commit()
         self.closeAll()
 
-# function to convert each row of results from a tuple into a dict  for use in flask
+# function to convert each row of results from a tuple into a dict for use in flask (source: https://blog.finxter.com/5-best-ways-to-convert-a-python-tuple-into-a-dictionary/)
     def convert_to_dict(self, resultLine):
         keys = ['LinguistID', 'LinguistName', 'LinguistEmail', 'TargetLocale']
         return dict(zip(keys, resultLine))
 
-# Create global instance of the class for use in Flask
+# Create global instance of the class for use in Flask (source: https://www.w3schools.com/python/python_variables_global.asp)
 dao = linguistDAO()
