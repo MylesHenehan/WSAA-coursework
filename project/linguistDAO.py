@@ -57,7 +57,7 @@ class linguistDAO:
         cursor = self.getcursor()
         sql = """
             SELECT l.LinguistID, l.LinguistName, l.LinguistEmail, l.TargetLocale,
-                r.PerWordRate, r.MinimumFee
+                r.PerWordRate, r.HourlyRate
             FROM linguists l
             LEFT JOIN rates r ON l.LinguistID = r.LinguistID
             WHERE l.LinguistID = %s
@@ -73,7 +73,7 @@ class linguistDAO:
                 "LinguistEmail": result[2],
                 "TargetLocale": result[3],
                 "PerWordRate": result[4],
-                "HourlyFee": result[5]
+                "HourlyRate": result[5]
             }
         else:
             return None

@@ -25,7 +25,7 @@ def findById(LinguistID):
 
 @app.route('/rates/<int:LinguistID>', methods=['GET'])
 def getRate(LinguistID):
-    rate = dao.getRateByLinguistID(LinguistID)
+    rate = dao.findLinguistWithRate(LinguistID)
     if rate:
         return jsonify(rate)
     else:
