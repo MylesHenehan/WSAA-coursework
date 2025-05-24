@@ -17,7 +17,7 @@ def getAll():
 
 @app.route('/linguists/<int:LinguistID>', methods=['GET'])
 def findById(LinguistID):
-    linguist = dao.findByID(LinguistID)
+    linguist = dao.findLinguistWithRate(LinguistID)
     if linguist:
         return jsonify(linguist)
     else:
@@ -44,7 +44,7 @@ def update(LinguistID):
     if not request.json:
         abort(400)
     linguist_data = request.json
-    found = dao.findByID(LinguistID)
+    found = dao.findLinguistWithRate(LinguistID)
     if not found:
         abort(404)
     dao.update(LinguistID, linguist_data)
