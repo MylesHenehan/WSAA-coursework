@@ -47,14 +47,13 @@ def update(LinguistID):
     found = dao.findByID(LinguistID)
     if not found:
         abort(404)
-    updated = dao.update(LinguistID, linguist_data)
-    return jsonify(updated)
+    dao.update(LinguistID, linguist_data)
+    return jsonify(linguist_data)
 
 @app.route('/linguists/<int:LinguistID>', methods=['DELETE'])
 def delete(LinguistID):
     dao.delete(LinguistID)
     return jsonify({"done": True})
-
 
 if __name__ == '__main__':
     app.run(debug=True)

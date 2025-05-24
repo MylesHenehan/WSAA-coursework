@@ -43,6 +43,7 @@ class linguistDAO:
                 r.HourlyRate
             FROM linguists AS l
             JOIN rates AS r ON l.LinguistID = r.LinguistID
+            ORDER BY l.LinguistID
         """
         cursor.execute(sql)
         results = cursor.fetchall()
@@ -96,16 +97,25 @@ class linguistDAO:
 # function to update a row of the table
     def update(self, LinguistID, linguist):
         cursor = self.getcursor()
-        sql = "UPDATE linguists SET LinguistName=%s, LinguistEmail=%s, TargetLocale=%s WHERE LinguistID = %s"
-        values = (
+        sql1 = "UPDATE linguists SET LinguistName=%s, LinguistEmail=%s, TargetLocale=%s WHERE LinguistID = %s"
+        values1 = (
             linguist.get("LinguistName"),
             linguist.get("LinguistEmail"),
             linguist.get("TargetLocale"),
             LinguistID
         )
-        cursor.execute(sql, values)
+        cursor.execute(sql1, values1)
+
+        sql2 = "UPDATE rates SET PerWordRate=%s, HourlyRate=%s WHERE LinguistID = %s"
+        values2 = (
+            linguist.get("PerWordRate"),
+            linguist.get("HourlyRate"),
+            LinguistID
+        )
+        cursor.execute(sql2, values2)
         self.connection.commit()
         self.closeAll()
+
 
 # function to delete a row from the table
     def delete(self, LinguistID):

@@ -44,6 +44,8 @@
                 <option value="es-ES">es-ES</option>
                 <option value="en-US">en-US</option>
             </select><br/><br/>
+            Per-Word Rate (EUR): <input type="number" step="0.001" name="PerWordRate"><br/>
+            Hourly Rate (EUR): <input type="number" step="0.01" name="HourlyRate"><br/><br/>
 
             <button id="doCreateButton" onclick="doCreate()">Submit</button>
             <button id="doUpdateButton" onclick="doUpdate()" style="display:none;">Update</button>
@@ -102,7 +104,9 @@
                 LinguistID: form.querySelector('input[name="LinguistID"]').value,
                 LinguistName: form.querySelector('input[name="LinguistName"]').value,
                 LinguistEmail: form.querySelector('input[name="LinguistEmail"]').value,
-                TargetLocale: form.querySelector('select[name="TargetLocale"]').value
+                TargetLocale: form.querySelector('select[name="TargetLocale"]').value,
+                PerWordRate: parseFloat(form.querySelector('input[name="PerWordRate"]').value),
+                HourlyRate: parseFloat(form.querySelector('input[name="HourlyRate"]').value)
             };
         }
 
@@ -131,6 +135,8 @@
             form.querySelector('input[name="LinguistName"]').value = linguist.LinguistName;
             form.querySelector('input[name="LinguistEmail"]').value = linguist.LinguistEmail;
             form.querySelector('select[name="TargetLocale"]').value = linguist.TargetLocale;
+            form.querySelector('input[name="PerWordRate"]').value = linguist.PerWordRate ?? '';
+            form.querySelector('input[name="HourlyRate"]').value = linguist.HourlyRate ?? '';
         }
 
         function addLinguistToTable(linguist, rate) {
@@ -187,18 +193,10 @@
                 method: "GET",
                 dataType: "JSON",
                 success: function(result){
+                    const tableBody = $('#LinguistTable tbody');
+                    tableBody.empty();
                     for (const linguist of result){
-                        $.ajax({
-                            url: "/rates/" + encodeURIComponent(linguist.LinguistID),
-                            method: "GET",
-                            dataType: "JSON",
-                            success: function(rate){
-                                addLinguistToTable(linguist, rate);
-                            },
-                            error: function() {
-                                addLinguistToTable(linguist, null); // no rate
-                            }
-                        });
+                        addLinguistToTable(linguist, linguist);
                     }
                 },
                 error: function(xhr, status, error){
@@ -216,7 +214,6 @@
                 dataType: "JSON",
                 contentType: "application/json; charset=utf-8",
                 success:function(result){
-                    // Use returned LinguistID and add to table
                     linguist.LinguistID = result.LinguistID;
                     addLinguistToTable(linguist);
                     clearForm();
@@ -233,13 +230,13 @@
             $.ajax({
                 url: "/linguists/" + encodeURIComponent(linguist.LinguistID),
                 method:"PUT",
-                data:JSON.stringify(linguist),
+                data: JSON.stringify(linguist),
                 dataType: "JSON",
                 contentType: "application/json; charset=utf-8",
                 success:function(result){
-                    // Update the row in table
+                    console.log("Update successful", result);
                     const row = document.getElementById(linguist.LinguistID);
-                    if(row){
+                    if (row) {
                         setLinguistInRow(row, linguist);
                     }
                     clearForm();
@@ -251,6 +248,7 @@
             });
         }
 
+
         // AJAX delete request
         function deleteLinguistAjax(id){
             $.ajax({
@@ -259,7 +257,6 @@
                 dataType: "JSON",
                 contentType: "application/json; charset=utf-8",
                 success:function(result){
-                    // Remove row from table
                     const row = document.getElementById(id);
                     if(row){
                         row.remove();
