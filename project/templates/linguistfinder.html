@@ -117,6 +117,9 @@
             form.querySelector('input[name="LinguistName"]').value = '';
             form.querySelector('input[name="LinguistEmail"]').value = '';
             form.querySelector('select[name="TargetLocale"]').value = 'fr-FR';
+            form.querySelector('input[name="PerWordRate"]').value = '';
+            form.querySelector('input[name="HourlyRate"]').value = '';
+
         }
 
         function getLinguistFromRow(row) {
@@ -124,7 +127,9 @@
                 LinguistID: row.cells[0].innerText,
                 LinguistName: row.cells[1].innerText,
                 LinguistEmail: row.cells[2].innerText,
-                TargetLocale: row.cells[3].innerText
+                TargetLocale: row.cells[3].innerText,
+                PerWordRate: row.cells[4].innerText,
+                HourlyRate: row.cells[5].innerText
             };
         }
 
@@ -139,7 +144,7 @@
             form.querySelector('input[name="HourlyRate"]').value = linguist.HourlyRate ?? '';
         }
 
-        function addLinguistToTable(linguist, rate) {
+        function addLinguistToTable(linguist) {
             const table = document.getElementById('LinguistTable').querySelector('tbody');
             const row = table.insertRow();
             row.id = linguist.LinguistID;
@@ -148,8 +153,8 @@
             row.insertCell(1).innerText = linguist.LinguistName;
             row.insertCell(2).innerText = linguist.LinguistEmail;
             row.insertCell(3).innerText = linguist.TargetLocale;
-            row.insertCell(4).innerText = rate?.PerWordRate ?? '-'; // uses optional chaining in case rate is null (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining)
-            row.insertCell(5).innerText = rate?.HourlyRate ?? '-';
+            row.insertCell(4).innerText = linguist.PerWordRate ?? '';
+            row.insertCell(5).innerText = linguist.HourlyRate ?? '';
             row.insertCell(6).innerHTML = '<button onclick="showUpdate(this)">Update</button>';
             row.insertCell(7).innerHTML = '<button onclick="doDelete(this)">Delete</button>';
         }
@@ -158,6 +163,8 @@
             row.cells[1].innerText = linguist.LinguistName;
             row.cells[2].innerText = linguist.LinguistEmail;
             row.cells[3].innerText = linguist.TargetLocale;
+            row.cells[4].innerText = linguist.PerWordRate;
+            row.cells[5].innerText = linguist.HourlyRate;
         }
 
         // Create a new linguist (local + AJAX)
@@ -194,9 +201,9 @@
                 dataType: "JSON",
                 success: function(result){
                     const tableBody = $('#LinguistTable tbody');
-                    tableBody.empty();
+                    tableBody.empty(); // clear existing rows
                     for (const linguist of result){
-                        addLinguistToTable(linguist, linguist);
+                        addLinguistToTable(linguist); // only pass one object
                     }
                 },
                 error: function(xhr, status, error){
@@ -206,21 +213,30 @@
         }
 
         // AJAX create request
-        function createLinguistAjax(linguist){
+        function createLinguistAjax(linguist) {
+            console.log(JSON.stringify(linguist));
             $.ajax({
                 url: "/linguists",
-                method:"POST",
-                data:JSON.stringify(linguist),
-                dataType: "JSON",
+                method: "POST",
+                data: JSON.stringify(linguist),
+                dataType: "json",
                 contentType: "application/json; charset=utf-8",
-                success:function(result){
-                    linguist.LinguistID = result.LinguistID;
-                    addLinguistToTable(linguist);
-                    clearForm();
-                    showViewAll();
+                success: function(result) {
+                    const newID = result.LinguistID;
+                    // Fetch full record (with rates) from backend
+                    $.ajax({
+                        url: "/linguists/" + newID,
+                        method: "GET",
+                        dataType: "json",
+                        success: function(fullLinguist) {
+                            addLinguistToTable(fullLinguist);
+                            clearForm();
+                            showViewAll();
+                        }
+                    });
                 },
-                error:function(xhr,status,error){
-                    console.log("error: "+status+" msg:"+error);
+                error: function(xhr, status, error) {
+                    console.log("error: " + status + " msg:" + error);
                 }
             });
         }
@@ -257,6 +273,7 @@
                 dataType: "JSON",
                 contentType: "application/json; charset=utf-8",
                 success:function(result){
+                    // Remove row from table
                     const row = document.getElementById(id);
                     if(row){
                         row.remove();

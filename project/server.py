@@ -37,7 +37,8 @@ def create():
         abort(400)
     linguist_data = request.json
     added_linguist = dao.create(linguist_data)
-    return jsonify(added_linguist), 201
+    full_record = dao.findLinguistWithRate(added_linguist["LinguistID"])
+    return jsonify(full_record), 201
 
 @app.route('/linguists/<int:LinguistID>', methods=['PUT'])
 def update(LinguistID):

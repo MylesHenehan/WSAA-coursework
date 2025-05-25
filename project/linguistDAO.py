@@ -42,7 +42,7 @@ class linguistDAO:
                 r.PerWordRate, 
                 r.HourlyRate
             FROM linguists AS l
-            JOIN rates AS r ON l.LinguistID = r.LinguistID
+            LEFT JOIN rates AS r ON l.LinguistID = r.LinguistID
             ORDER BY l.LinguistID
         """
         cursor.execute(sql)
@@ -82,17 +82,31 @@ class linguistDAO:
 # function which takes a dict object for linguist and inserts it to the database
     def create(self, linguist): 
         cursor = self.getcursor()
-        sql = "INSERT INTO linguists (LinguistName, LinguistEmail, TargetLocale) VALUES (%s, %s, %s)" # not including LinguistID because this is set to autoincrement
+        # Insert into linguists table
+        sql = "INSERT INTO linguists (LinguistName, LinguistEmail, TargetLocale) VALUES (%s, %s, %s)"
         values = (
             linguist.get("LinguistName"),
             linguist.get("LinguistEmail"),
             linguist.get("TargetLocale")
         )
         cursor.execute(sql, values)
+        linguist_id = cursor.lastrowid
+
+        # Insert into rates table if rates are provided
+        if "PerWordRate" in linguist or "HourlyRate" in linguist:
+            sql_rate = """
+                INSERT INTO rates (LinguistID, PerWordRate, HourlyRate) VALUES (%s, %s, %s)
+            """
+            cursor.execute(sql_rate, (
+                linguist_id,
+                linguist.get("PerWordRate"),
+                linguist.get("HourlyRate")
+            ))
+
         self.connection.commit()
-        linguist["LinguistID"] = cursor.lastrowid
         self.closeAll()
-        return linguist
+
+        return self.findLinguistWithRate(linguist_id)
 
 # function to update a row of the table
     def update(self, LinguistID, linguist):
@@ -115,7 +129,6 @@ class linguistDAO:
         cursor.execute(sql2, values2)
         self.connection.commit()
         self.closeAll()
-
 
 # function to delete a row from the table
     def delete(self, LinguistID):
