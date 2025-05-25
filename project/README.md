@@ -3,8 +3,7 @@
 
 ***
 # Freelance Linguist Web App  
-
-This is a full-stack web application developed as part of the final project in the Web Services and Applications module. The app allows users to manage a list of freelance linguists: viewing, adding, updating, and deleting linguist records through a user-friendly interface and a Flask-powered REST API.
+This full-stack web application was developed as the final project for the Web Services and Applications module. It demonstrates the integration of front-end and back-end technologies to build a dynamic, database-driven system. The application enables users to manage a list of freelance linguists, supporting core CRUD operations: viewing, adding, updating, and deleting records. The front end is built using HTML, Bootstrap, and jQuery, providing a responsive and user-friendly interface. The back end is powered by a Flask-based REST API, which handles data transactions and communicates with a MySQL database via a custom Data Access Object (DAO) layer. AJAX is used to enable asynchronous interaction between the client and server. The application is deployed on PythonAnywhere, showcasing practical skills in full-stack development, RESTful API design, and cloud-based deployment.
 
 ---
 
@@ -16,6 +15,7 @@ This is a full-stack web application developed as part of the final project in t
 | `linguistDAO.py` | A Python Data Access Object (DAO) module that handles all interactions with the MySQL database. |
 | `linguistfinder.html` | A front-end HTML template that provides a web interface for interacting with the linguist database using AJAX. |
 | `dbconfig.py` | Contains database configuration details such as connection parameters, used by the DAO to establish database connections. |
+| `requirements.txt`| Lists all Python dependencies needed to run the application (used for quick setup in virtual environments or deployment).
 
 
 ---
