@@ -8,8 +8,8 @@
 </head>
 <body class="p-4">
 
-    <h1>Linguists</h1>
-    <p>Directory of Freelance Linguists.</p>
+    <h1 class="mb-3">Linguists</h1>
+    <p class="text-muted mb-4">Directory of Freelance Linguists</p>
 
     <div>
         <button class="btn btn-primary" id="showCreateButton" onclick="showCreate()">Create</button> <!-- adding bootstrap classes to make prettier (https://getbootstrap.com/docs/4.0/components/buttons/) -->
@@ -52,7 +52,7 @@
         </div>
     </div>
 
-    <table class="table" id="LinguistTable">
+    <table class="table table-striped table-hover" id="LinguistTable"> <!-- improving table style (https://getbootstrap.com/docs/4.0/content/tables/) -->
         <thead>
             <tr>
                 <th>Linguist ID</th>
