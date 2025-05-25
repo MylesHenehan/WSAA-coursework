@@ -12,7 +12,7 @@
     <p>Directory of Freelance Linguists.</p>
 
     <div>
-        <button id="showCreateButton" onclick="showCreate()">Create</button>
+        <button class="btn btn-primary" id="showCreateButton" onclick="showCreate()">Create</button> <!-- adding bootstrap classes to make prettier (https://getbootstrap.com/docs/4.0/components/buttons/) -->
     </div>
 
     <div id="createUpdateForm" style="display: none;" class="my-3">
@@ -47,8 +47,8 @@
             Per-Word Rate (EUR): <input type="number" step="0.001" name="PerWordRate"><br/>
             Hourly Rate (EUR): <input type="number" step="0.01" name="HourlyRate"><br/><br/>
 
-            <button id="doCreateButton" onclick="doCreate()">Submit</button>
-            <button id="doUpdateButton" onclick="doUpdate()" style="display:none;">Update</button>
+            <button class="btn btn-success" id="doCreateButton" onclick="doCreate()">Submit</button> 
+            <button class="btn btn-warning" id="doUpdateButton" onclick="doUpdate()" style="display:none;">Update</button>
         </div>
     </div>
 
