@@ -1,63 +1,84 @@
 <html>
 <head>
     <title>Find Linguists</title>
+    <!-- Loading Bootstrap CSS for styling -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
         crossorigin="anonymous">
+    <!-- Loading jQuery library for AJAX and DOM manipulation -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
 </head>
+<!-- Adding jumbotron for visual effect (https://getbootstrap.com/docs/4.0/components/jumbotron/)-->
 <body class="bg-light p-4">
-
-    <div class="jumbotron bg-primary text-white rounded shadow-sm mb-4"> <!-- Adding jumbotron for visual effect (https://getbootstrap.com/docs/4.0/components/jumbotron/)-->
+    <div class="jumbotron bg-primary text-white rounded shadow-sm mb-4">
         <div class="container">
           <h1 class="display-4">Linguists</h1>
           <p class="lead">Directory of Freelance Linguists</p>
         </div>
     </div>
-    
-
     <div>
-        <button class="btn btn-primary" id="showCreateButton" onclick="showCreate()">Create</button> <!-- adding bootstrap classes to make prettier (https://getbootstrap.com/docs/4.0/components/buttons/) -->
+        <!-- Adding button to show form for creating a linguist, using bootstrap for style (https://getbootstrap.com/docs/4.0/components/buttons/) -->
+        <button class="btn btn-primary" id="showCreateButton" onclick="showCreate()">Create</button>
     </div>
-
+    <!-- Creating form and specifying input valies, with improvements to style made through bootstrap (https://getbootstrap.com/docs/4.1/components/forms/) -->
     <div id="createUpdateForm" style="display: none;" class="my-3">
-        <h2 id="formHeader">
-            <span id="createLabel">Create a</span>
-            <span id="updateLabel" style="display: none;">Update this</span> Linguist
+        <h2 id="formHeader" class="mb-4">
+          <span id="createLabel">Create a</span>
+          <span id="updateLabel" style="display: none;">Update this</span> Linguist
         </h2>
-
-        <div>
-            <input type="hidden" name="LinguistID"> 
-            Name: <input type="text" name="LinguistName"><br/>
-            Email: <input type="text" name="LinguistEmail"><br/>
-            Target Locale:
-            <select name="TargetLocale">
-                <option value="ru-RU">ru-RU</option>
-                <option value="zh-CN">zh-CN</option>
-                <option value="ja-JP">ja-JP</option>
-                <option value="id-ID">id-ID</option>
-                <option value="es-LA">es-LA</option>
-                <option value="pt-BR">pt-BR</option>
-                <option value="hi-IN">hi-IN</option>
-                <option value="it-IT">it-IT</option>
-                <option value="ar-SA">ar-SA</option>
-                <option value="ko-KR">ko-KR</option>
-                <option value="sv-SE">sv-SE</option>
-                <option value="en-GB">en-GB</option>
-                <option value="fr-FR">fr-FR</option>
-                <option value="de-DE">de-DE</option>
-                <option value="es-ES">es-ES</option>
-                <option value="en-US">en-US</option>
-            </select><br/><br/>
-            Per-Word Rate (EUR): <input type="number" step="0.001" name="PerWordRate"><br/>
-            Hourly Rate (EUR): <input type="number" step="0.01" name="HourlyRate"><br/><br/>
-
-            <button class="btn btn-success" id="doCreateButton" onclick="doCreate()">Submit</button> 
-            <button class="btn btn-warning" id="doUpdateButton" onclick="doUpdate()" style="display:none;">Update</button>
+      
+        <input type="hidden" name="LinguistID">
+      
+        <div class="form-group">
+          <label for="linguistName">Name</label>
+          <input type="text" class="form-control" id="linguistName" name="LinguistName" placeholder="Enter name">
         </div>
+      
+        <div class="form-group">
+          <label for="linguistEmail">Email</label>
+          <input type="email" class="form-control" id="linguistEmail" name="LinguistEmail" placeholder="Enter email">
+        </div>
+      
+        <div class="form-group">
+          <label for="targetLocale">Target Locale</label>
+          <select class="form-control" id="targetLocale" name="TargetLocale">
+            <option value="ru-RU">ru-RU</option>
+            <option value="zh-CN">zh-CN</option>
+            <option value="ja-JP">ja-JP</option>
+            <option value="id-ID">id-ID</option>
+            <option value="es-LA">es-LA</option>
+            <option value="pt-BR">pt-BR</option>
+            <option value="hi-IN">hi-IN</option>
+            <option value="it-IT">it-IT</option>
+            <option value="ar-SA">ar-SA</option>
+            <option value="ko-KR">ko-KR</option>
+            <option value="sv-SE">sv-SE</option>
+            <option value="en-GB">en-GB</option>
+            <option value="fr-FR">fr-FR</option>
+            <option value="de-DE">de-DE</option>
+            <option value="es-ES">es-ES</option>
+            <option value="en-US">en-US</option>
+          </select>
+        </div>
+      
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="perWordRate">Per-Word Rate (EUR)</label>
+            <input type="number" step="0.001" class="form-control" id="perWordRate" name="PerWordRate" placeholder="e.g. 0.05">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="hourlyRate">Hourly Rate (EUR)</label>
+            <input type="number" step="0.01" class="form-control" id="hourlyRate" name="HourlyRate" placeholder="e.g. 25.00">
+          </div>
+        </div>
+      
+        <button class="btn btn-success mr-2" id="doCreateButton" onclick="doCreate()">Submit</button>
+        <button class="btn btn-warning" id="doUpdateButton" onclick="doUpdate()" style="display:none;">Update</button>
     </div>
 
-    <table class="table table-striped table-hover" id="LinguistTable"> <!-- improving table style (https://getbootstrap.com/docs/4.0/content/tables/) -->
+    <!-- Creating bootstrap styled table (https://getbootstrap.com/docs/4.0/content/tables/) -->
+    <table class="table table-striped table-hover" id="LinguistTable">
         <thead>
             <tr>
                 <th>Linguist ID</th>
@@ -74,7 +95,14 @@
         </tbody>
     </table>
 
+<!-- JAVASCRIPT FUNCTIONS -->
     <script>
+    // - showCreate/showUpdate: toggle form visibility and mode
+    // - getLinguistFromForm/Row: extract linguist data from form or table row
+    // - clearForm/populateFormWithLinguist: form helpers
+    // - addLinguistToTable/setLinguistInRow: update table rows
+    // - doCreate/doUpdate/doDelete: trigger AJAX calls for CRUD operations
+    // - AJAX functions: getAllAjax, createLinguistAjax, updateLinguistAjax, deleteLinguistAjax
         function showCreate() {
             document.getElementById('showCreateButton').style.display = "none";
             document.getElementById('LinguistTable').style.display = "none";
@@ -291,7 +319,7 @@
             });
         }
 
-        // Initialize by loading all linguists
+        // Initialise by loading all linguists
         getAllAjax();
     </script>
 </body>

@@ -23,14 +23,6 @@ def findById(LinguistID):
     else:
         abort(404)
 
-@app.route('/rates/<int:LinguistID>', methods=['GET'])
-def getRate(LinguistID):
-    rate = dao.findLinguistWithRate(LinguistID)
-    if rate:
-        return jsonify(rate)
-    else:
-        abort(404)
-
 @app.route('/linguists', methods=['POST'])
 def create():
     if not request.json:
