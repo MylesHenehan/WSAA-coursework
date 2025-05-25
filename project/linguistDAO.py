@@ -130,6 +130,7 @@ class linguistDAO:
         self.connection.commit()
         self.closeAll()
 
+
 # function to delete a row from the table
     def delete(self, LinguistID):
         cursor = self.getcursor()
