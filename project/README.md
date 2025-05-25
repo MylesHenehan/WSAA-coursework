@@ -6,7 +6,7 @@
 # Freelance Linguist Web App  
 This full-stack web application was developed as the final project for the Web Services and Applications module. It demonstrates the integration of front-end and back-end technologies to build a dynamic, database-driven system. The application enables users to manage a list of freelance linguists, supporting core CRUD operations: viewing, adding, updating, and deleting records. The front end is built using HTML, Bootstrap, and jQuery, providing a responsive and user-friendly interface. The back end is powered by a Flask-based REST API, which handles data transactions and communicates with a MySQL database via a custom Data Access Object (DAO) layer. AJAX is used to enable asynchronous interaction between the client and server. The application is deployed on PythonAnywhere, showcasing practical skills in full-stack development, RESTful API design, and cloud-based deployment.
 
-This project extends the sample code provided in the module by incorporating additional features. It utilises two tables instead of one and effectively joins them to display the combined data on the webpage. Additionally, a search bar has been added to enable users to filter the results. Finally, Bootstrap is used to enhance the webpage’s design, creating a more cohesive and polished appearance.
+This project extends the sample code provided in the module by incorporating additional features. It utilises two tables instead of one - a linguists table and a rates table - which are joined using LinguistID as the primary key. Additionally, a search bar has been added to enable users to filter the results. Finally, Bootstrap is used to enhance the webpage’s design, creating a more cohesive and polished appearance.
 
 I chose the theme of a linguist database because I work as a Translation Project Manager. Currently, when selecting linguists for projects, we use Google Sheets to query the information we have on record. However, I believe we would greatly benefit from using a dedicated database — albeit a much more detailed one than the example showcased here. Using a theme related to my everyday work helped me view the application from a user’s perspective and better understand the features and functionalities that would be needed.
 
@@ -83,7 +83,7 @@ I chose the theme of a linguist database because I work as a Translation Project
 3. Add your DB credentials in `dbconfig.py`
 4. Install required Python packages:
    ```bash
-   pip install requirements.txt
+   pip install -r requirements.txt
    ```
 5. Run your app:
    ```bash
@@ -98,6 +98,12 @@ You can also view and interact with the project here:
 👉 **[https://myleshenehan.pythonanywhere.com/](https://myleshenehan.pythonanywhere.com/)**
 
 This is hosted on [PythonAnywhere](https://www.pythonanywhere.com/), where the Flask backend and MySQL database are deployed in a live environment.
+
+## 🔮 Areas for Further Development
+- Add authentication and user roles (e.g., Admin vs Viewer).
+- Add more restrictions around input values and provide warnings to users if the inputs don't align with the schema of the database.
+- - Improve search filtering with autocomplete or advanced filters (e.g., by rate or language).
+
 
 ---
 
