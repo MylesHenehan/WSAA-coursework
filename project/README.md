@@ -1,9 +1,14 @@
 # Web Services and Applications: Big Project
 ### Author: Myles Henehan
+### Student Number: G00439446
 
 ***
 # Freelance Linguist Web App  
 This full-stack web application was developed as the final project for the Web Services and Applications module. It demonstrates the integration of front-end and back-end technologies to build a dynamic, database-driven system. The application enables users to manage a list of freelance linguists, supporting core CRUD operations: viewing, adding, updating, and deleting records. The front end is built using HTML, Bootstrap, and jQuery, providing a responsive and user-friendly interface. The back end is powered by a Flask-based REST API, which handles data transactions and communicates with a MySQL database via a custom Data Access Object (DAO) layer. AJAX is used to enable asynchronous interaction between the client and server. The application is deployed on PythonAnywhere, showcasing practical skills in full-stack development, RESTful API design, and cloud-based deployment.
+
+This project extends the sample code provided in the module by incorporating additional features. It utilizes two tables instead of one and effectively joins them to display the combined data on the webpage. Additionally, a search bar has been added to enable users to filter the results. Finally, Bootstrap is used to enhance the webpage’s design, creating a more cohesive and polished appearance.
+
+I chose the theme of a linguist database because I work as a Translation Project Manager. Currently, when selecting linguists for projects, we use Google Sheets to query the information we have on record. However, I believe we would greatly benefit from using a dedicated database—albeit a much more detailed one than the example showcased here. Using a theme related to my everyday work helped me view the application from a user’s perspective and better understand the features and functionalities that would be needed.
 
 ---
 
