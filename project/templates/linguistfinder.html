@@ -6,10 +6,15 @@
         crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-<body class="p-4">
+<body class="bg-light p-4">
 
-    <h1 class="mb-3">Linguists</h1>
-    <p class="text-muted mb-4">Directory of Freelance Linguists</p>
+    <div class="jumbotron bg-primary text-white rounded shadow-sm mb-4"> <!-- Adding jumbotron for visual effect (https://getbootstrap.com/docs/4.0/components/jumbotron/)-->
+        <div class="container">
+          <h1 class="display-4">Linguists</h1>
+          <p class="lead">Directory of Freelance Linguists</p>
+        </div>
+    </div>
+    
 
     <div>
         <button class="btn btn-primary" id="showCreateButton" onclick="showCreate()">Create</button> <!-- adding bootstrap classes to make prettier (https://getbootstrap.com/docs/4.0/components/buttons/) -->

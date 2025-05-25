@@ -112,6 +112,7 @@ Atlantic Technological University (ATU)
 # References:
 - Blog.finxter.com, 2023. 5 Best Ways to Convert a Python Tuple into a Dictionary. [online] Available at: https://blog.finxter.com/5-best-ways-to-convert-a-python-tuple-into-a-dictionary/ [Accessed 15 May 2025].
 - Bootstrap, 2018. Buttons. [online] Available at: https://getbootstrap.com/docs/4.0/components/buttons/ [Accessed 25 May 2025].
+- Bootstrap (2018) Jumbotron. Available at: https://getbootstrap.com/docs/4.0/components/jumbotron/ (Accessed: 25 May 2025).
 - Bootstrap, 2018. Tables. [online] Available at: https://getbootstrap.com/docs/4.0/content/tables/ [Accessed 25 May 2025].
 - GeeksforGeeks (n.d.) Data Access Object Pattern. [online] Available at: https://www.geeksforgeeks.org/data-access-object-pattern/ [Accessed 14 May 2025].
 - Geeksforgeeks.org, 2023. JavaScript const. [online] Available at: https://www.geeksforgeeks.org/javascript-const/ [Accessed 16 May 2025].
