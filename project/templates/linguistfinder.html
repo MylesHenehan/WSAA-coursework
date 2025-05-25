@@ -7,21 +7,24 @@
         crossorigin="anonymous">
     <!-- Loading jQuery library for AJAX and DOM manipulation -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
+
 </head>
 <!-- Adding jumbotron for visual effect (https://getbootstrap.com/docs/4.0/components/jumbotron/)-->
 <body class="bg-light p-4">
+
     <div class="jumbotron bg-primary text-white rounded shadow-sm mb-4">
         <div class="container">
           <h1 class="display-4">Linguists</h1>
           <p class="lead">Directory of Freelance Linguists</p>
         </div>
     </div>
+
     <div>
         <!-- Adding button to show form for creating a linguist, using bootstrap for style (https://getbootstrap.com/docs/4.0/components/buttons/) -->
         <button class="btn btn-primary" id="showCreateButton" onclick="showCreate()">Create</button>
     </div>
-    <!-- Creating form and specifying input valies, with improvements to style made through bootstrap (https://getbootstrap.com/docs/4.1/components/forms/) -->
+
+    <!-- Creating form and specifying input values, with improvements to style made through bootstrap (https://getbootstrap.com/docs/4.1/components/forms/) -->
     <div id="createUpdateForm" style="display: none;" class="my-3">
         <h2 id="formHeader" class="mb-4">
           <span id="createLabel">Create a</span>
@@ -77,6 +80,11 @@
         <button class="btn btn-warning" id="doUpdateButton" onclick="doUpdate()" style="display:none;">Update</button>
     </div>
 
+    <!-- Creating search box in order to filter the table -->
+    <div class="mb-3" id="searchContainer">
+        <input type="text" id="searchInput" class="form-control" placeholder="Search by name, email, or locale...">
+    </div>
+
     <!-- Creating bootstrap styled table (https://getbootstrap.com/docs/4.0/content/tables/) -->
     <table class="table table-striped table-hover" id="LinguistTable">
         <thead>
@@ -107,6 +115,7 @@
             document.getElementById('showCreateButton').style.display = "none";
             document.getElementById('LinguistTable').style.display = "none";
             document.getElementById('createUpdateForm').style.display = "block";
+            document.getElementById('searchContainer').style.display = "none"; // hidden for create form
 
             document.getElementById('createLabel').style.display = "inline";
             document.getElementById('updateLabel').style.display = "none";
@@ -120,6 +129,7 @@
             document.getElementById('showCreateButton').style.display = "none";
             document.getElementById('LinguistTable').style.display = "none";
             document.getElementById('createUpdateForm').style.display = "block";
+            document.getElementById('searchContainer').style.display = "none"; // hidden for update form
 
             document.getElementById('createLabel').style.display = "none";
             document.getElementById('updateLabel').style.display = "inline";
@@ -224,6 +234,7 @@
             document.getElementById('showCreateButton').style.display = "inline";
             document.getElementById('LinguistTable').style.display = "table";
             document.getElementById('createUpdateForm').style.display = "none";
+            document.getElementById('searchContainer').style.display = "block"; // show search box again
         }
 
         // Load all linguists from server and populate table
@@ -322,5 +333,17 @@
         // Initialise by loading all linguists
         getAllAjax();
     </script>
+<script>
+    // Using an EventListener for the Input Field, with keyup to trigger while typing (source: https://www.sencha.com/blog/event-handling-in-javascript-a-practical-guide-with-examples/)
+    document.getElementById('searchInput').addEventListener('keyup', function() {
+        const value = this.value.toLowerCase();
+        const rows = document.querySelectorAll('#LinguistTable tbody tr');
+        
+        rows.forEach(row => {
+            const text = row.innerText.toLowerCase();
+            row.style.display = text.includes(value) ? '' : 'none'; // checks if the row's text contains the search term typed by the user. If so, it displays it, if not, it hides it.
+        });
+    });
+</script>
 </body>
 </html>

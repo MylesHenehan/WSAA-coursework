@@ -123,10 +123,12 @@ Atlantic Technological University (ATU)
 - Medium.com, 2023. How to Deploy a Python App on PythonAnywhere. [online] Available at: https://medium.com/@cssjhnnamae/how-to-deploy-a-python-app-on-pythonanywhere-cf399f4bbc01 [Accessed 19 May 2025].
 - OpenAI, 2025. ChatGPT. [online] Available at: https://chat.openai.com/ [Accessed 23 May 2025].
 - Planetscale.com, 2023. Using cursors in Python with MySQL. [online] Planetscale. Available at: https://planetscale.com/learn/courses/mysql-for-python-developers/using-mysql-with-python/using-cursors?autoplay=1 [Accessed 15 May 2025].
+- Sencha. (2023). Event Handling in JavaScript: A Practical Guide with Examples. [online] Available at: https://www.sencha.com/blog/event-handling-in-javascript-a-practical-guide-with-examples/ [Accessed 25 May 2025].
 - TutorialsPoint.com, 2025. AJAX Tutorial. [online] Available at: https://www.tutorialspoint.com/ajax/index.htm [Accessed 18 May 2025].
 - W3Schools.com, 2025a. HTML `<div>` Tag. [online] Available at: https://www.w3schools.com/tags/tag_div.ASP [Accessed 16 May 2025].
 - W3Schools.com, 2025b. HTML `<h1>` to `<h6>` Tags. [online] Available at: https://www.w3schools.com/tags/tag_hn.asp [Accessed 16 May 2025].
 - W3Schools.com, 2025c. HTML `<option>` Tag. [online] Available at: https://www.w3schools.com/TAgs/tag_option.asp [Accessed 16 May 2025].
+- W3Schools. (n.d.). HTML DOM onkeyup Event. [online] Available at: https://www.w3schools.com/jsref/event_onkeyup.asp [Accessed 25 May 2025].
 - W3Schools.com, 2025. HTML input type="hidden" Attribute. [online] Available at: https://www.w3schools.com/tags/att_input_type_hidden.asp [Accessed 23 May 2025].
 - W3Schools.com, 2025d. HTML onClick Attribute. [online] Available at: https://www.w3schools.com/TAGs/att_onclick.asp [Accessed 16 May 2025].
 - W3Schools.com, 2025e. jQuery - Get Started. [online] Available at: https://www.w3schools.com/jquery/jquery_get_started.asp [Accessed 19 May 2025].
