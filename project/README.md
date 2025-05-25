@@ -6,9 +6,9 @@
 # Freelance Linguist Web App  
 This full-stack web application was developed as the final project for the Web Services and Applications module. It demonstrates the integration of front-end and back-end technologies to build a dynamic, database-driven system. The application enables users to manage a list of freelance linguists, supporting core CRUD operations: viewing, adding, updating, and deleting records. The front end is built using HTML, Bootstrap, and jQuery, providing a responsive and user-friendly interface. The back end is powered by a Flask-based REST API, which handles data transactions and communicates with a MySQL database via a custom Data Access Object (DAO) layer. AJAX is used to enable asynchronous interaction between the client and server. The application is deployed on PythonAnywhere, showcasing practical skills in full-stack development, RESTful API design, and cloud-based deployment.
 
-This project extends the sample code provided in the module by incorporating additional features. It utilizes two tables instead of one and effectively joins them to display the combined data on the webpage. Additionally, a search bar has been added to enable users to filter the results. Finally, Bootstrap is used to enhance the webpage’s design, creating a more cohesive and polished appearance.
+This project extends the sample code provided in the module by incorporating additional features. It utilises two tables instead of one and effectively joins them to display the combined data on the webpage. Additionally, a search bar has been added to enable users to filter the results. Finally, Bootstrap is used to enhance the webpage’s design, creating a more cohesive and polished appearance.
 
-I chose the theme of a linguist database because I work as a Translation Project Manager. Currently, when selecting linguists for projects, we use Google Sheets to query the information we have on record. However, I believe we would greatly benefit from using a dedicated database—albeit a much more detailed one than the example showcased here. Using a theme related to my everyday work helped me view the application from a user’s perspective and better understand the features and functionalities that would be needed.
+I chose the theme of a linguist database because I work as a Translation Project Manager. Currently, when selecting linguists for projects, we use Google Sheets to query the information we have on record. However, I believe we would greatly benefit from using a dedicated database — albeit a much more detailed one than the example showcased here. Using a theme related to my everyday work helped me view the application from a user’s perspective and better understand the features and functionalities that would be needed.
 
 ---
 
@@ -20,7 +20,9 @@ I chose the theme of a linguist database because I work as a Translation Project
 | `linguistDAO.py` | A Python Data Access Object (DAO) module that handles all interactions with the MySQL database. |
 | `linguistfinder.html` | A front-end HTML template that provides a web interface for interacting with the linguist database using AJAX. |
 | `dbconfig.py` | Contains database configuration details such as connection parameters, used by the DAO to establish database connections. |
-| `requirements.txt`| Lists all Python dependencies needed to run the application (used for quick setup in virtual environments or deployment).
+| `requirements.txt`| Lists all Python dependencies needed to run the application (used for quick setup in virtual environments or deployment). |
+| `db-backup.sql`| The database to import if you are running the application locally. |
+
 
 
 ---
@@ -68,28 +70,20 @@ I chose the theme of a linguist database because I work as a Translation Project
 ### `linguistfinder.html`
 - Web UI for viewing and managing linguists
 - Uses jQuery to make AJAX calls to the Flask backend
-- Contains form inputs for Name, Email, and Target Locale
+- Contains form inputs for Name, Email, Target Locale, Per-Word Rate and Hourly Rate.
 - Shows a table of all linguists
-- Target locale dropdown includes hardcoded values like `fr-FR`, `es-LA`, `ru-RU`, etc.
+- Target locale dropdown includes a hardcoded list of accepted languages `fr-FR`, `es-LA`, `ru-RU`, etc.
 
 ---
 
-## ✅ Setup Instructions
+## ✅ Setup Instructions for Running the Application Locally.
 
-1. **Clone the repo / upload files to PythonAnywhere**
-2. Ensure your MySQL DB has a `linguists` table with:
-   ```sql
-   CREATE TABLE linguists (
-     LinguistID INT AUTO_INCREMENT PRIMARY KEY,
-     LinguistName VARCHAR(100),
-     LinguistEmail VARCHAR(100),
-     TargetLocale VARCHAR(20)
-   );
-   ```
+1. **Clone the repo**
+2. Import the database file db-backup.sql from the repo to MySQL
 3. Add your DB credentials in `dbconfig.py`
 4. Install required Python packages:
    ```bash
-   pip install flask flask-cors mysql-connector-python
+   pip install requirements.txt
    ```
 5. Run your app:
    ```bash
@@ -100,21 +94,12 @@ I chose the theme of a linguist database because I work as a Translation Project
 
 ## 🌐 Live Demo
 
-You can view and interact with the project here:  
+You can also view and interact with the project here:  
 👉 **[https://myleshenehan.pythonanywhere.com/](https://myleshenehan.pythonanywhere.com/)**
 
 This is hosted on [PythonAnywhere](https://www.pythonanywhere.com/), where the Flask backend and MySQL database are deployed in a live environment.
 
 ---
-
-## 👩‍🎓 Author
-
-**Myles Henehan**  
-Web Services and Applications  
-Atlantic Technological University (ATU)
-
-🔗 Live site: [https://myleshenehan.pythonanywhere.com/](https://myleshenehan.pythonanywhere.com/)
-
 
 # References:
 - Blog.finxter.com, 2023. 5 Best Ways to Convert a Python Tuple into a Dictionary. [online] Available at: https://blog.finxter.com/5-best-ways-to-convert-a-python-tuple-into-a-dictionary/ [Accessed 15 May 2025].
