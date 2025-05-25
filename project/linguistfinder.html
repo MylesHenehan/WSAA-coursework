@@ -12,14 +12,14 @@
 <!-- Adding jumbotron for visual effect (https://getbootstrap.com/docs/4.0/components/jumbotron/)-->
 <body class="bg-light p-4">
 
-    <div class="jumbotron bg-primary text-white rounded shadow-sm mb-4">
+    <div class="jumbotron bg-secondary text-white rounded shadow-sm mb-4">
         <div class="container">
-          <h1 class="display-4">Linguists</h1>
+          <h1 class="display-4 text-start">Linguists</h1>
           <p class="lead">Directory of Freelance Linguists</p>
         </div>
     </div>
 
-    <div>
+    <div class="mb-4">
         <!-- Adding button to show form for creating a linguist, using bootstrap for style (https://getbootstrap.com/docs/4.0/components/buttons/) -->
         <button class="btn btn-primary" id="showCreateButton" onclick="showCreate()">Create</button>
     </div>
@@ -81,7 +81,7 @@
     </div>
 
     <!-- Creating search box in order to filter the table -->
-    <div class="mb-3" id="searchContainer">
+    <div class="mb-4" id="searchContainer">
         <input type="text" id="searchInput" class="form-control" placeholder="Search by name, email, or locale...">
     </div>
 
