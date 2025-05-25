@@ -35,12 +35,12 @@
       
         <div class="form-group">
           <label for="linguistName">Name</label>
-          <input type="text" class="form-control" id="linguistName" name="LinguistName" placeholder="Enter name">
+          <input type="text" class="form-control" id="linguistName" name="LinguistName" placeholder="Enter name" required>
         </div>
       
         <div class="form-group">
           <label for="linguistEmail">Email</label>
-          <input type="email" class="form-control" id="linguistEmail" name="LinguistEmail" placeholder="Enter email">
+          <input type="email" class="form-control" id="linguistEmail" name="LinguistEmail" placeholder="Enter email" required>
         </div>
       
         <div class="form-group">
@@ -68,11 +68,11 @@
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="perWordRate">Per-Word Rate (EUR)</label>
-            <input type="number" step="0.001" class="form-control" id="perWordRate" name="PerWordRate" placeholder="e.g. 0.05">
+            <input type="number" step="0.001" class="form-control" id="perWordRate" name="PerWordRate" min="0.05" max="0.12" placeholder="e.g. 0.05" required>
           </div>
           <div class="form-group col-md-6">
             <label for="hourlyRate">Hourly Rate (EUR)</label>
-            <input type="number" step="0.01" class="form-control" id="hourlyRate" name="HourlyRate" placeholder="e.g. 25.00">
+            <input type="number" step="0.01" class="form-control" id="hourlyRate" name="HourlyRate" placeholder="e.g. 25.00" required>
           </div>
         </div>
       
