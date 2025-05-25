@@ -18,7 +18,6 @@ instance/
 *.egg-info/
 dist/
 build/
-*.sql
 *.sql.gz
 htmlcov/
 coverage.xml
