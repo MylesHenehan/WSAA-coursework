@@ -15,6 +15,8 @@ This is a full-stack web application developed as part of the final project in t
 | `server.py` | The main Flask application. It defines the REST API routes and integrates with the DAO and HTML template. |
 | `linguistDAO.py` | A Python Data Access Object (DAO) module that handles all interactions with the MySQL database. |
 | `linguistfinder.html` | A front-end HTML template that provides a web interface for interacting with the linguist database using AJAX. |
+| `dbconfig.py` | Contains database configuration details such as connection parameters, used by the DAO to establish database connections. |
+
 
 ---
 
@@ -34,7 +36,7 @@ This is a full-stack web application developed as part of the final project in t
 - Create new linguists (auto-increment ID)
 - Update existing linguist information
 - Delete linguists
-- Filter and load individual linguists via API route (`/linguists/<id>`)
+- Filter and load individual linguists via API route (`/linguists/<id>`) or through the search box
 
 ---
 
