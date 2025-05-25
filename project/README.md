@@ -102,7 +102,7 @@ This is hosted on [PythonAnywhere](https://www.pythonanywhere.com/), where the F
 ## 🔮 Areas for Further Development
 - Add authentication and user roles (e.g., Admin vs Viewer).
 - Add more restrictions around input values and provide warnings to users if the inputs don't align with the schema of the database.
-- - Improve search filtering with autocomplete or advanced filters (e.g., by rate or language).
+- Improve search filtering with autocomplete or advanced filters (e.g., by rate or language).
 
 
 ---
